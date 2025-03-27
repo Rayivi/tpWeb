@@ -15,7 +15,7 @@ function DnD(canvas, interactor) {
     let pos = getMousePosition(canvas,event);
     this.xInit = pos.x;
     this.yInit = pos.y;
-    console.log("Click"+pos);
+    //console.log("Click"+pos);
   }.bind(this);
   
   this.mousemove = function maFctGerantLeDeplacement (event){
@@ -23,7 +23,7 @@ function DnD(canvas, interactor) {
     let pos = getMousePosition(canvas,event);
     this.xInit = pos.x;
     this.yInit = pos.y;
-    console.log("Bouger "+pos);
+   // console.log("Bouger "+pos);
   }.bind(this);
 
   this.mouseup = function maFctGerantLeRelachement (event) {

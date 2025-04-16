@@ -9,6 +9,11 @@ function Pencil(ctx, drawing, canvas) {
 
 	// Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
 
+	document.getElementById('butRect').onclick =(_) => this.currEditingMode = editingMode.rect;
+	document.getElementById('butLine').onclick =(_) => this.currEditingMode = editingMode.line;
+	document.getElementById('colour').onchange = (e) => this.currColour = e.target.value;
+	document.getElementById('spinnerWidth').onchange = (e) => this.currLineWidth = e.target.value;
+	
 	new DnD(canvas, this);
 
 	// Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
@@ -20,9 +25,15 @@ function Pencil(ctx, drawing, canvas) {
 	  
 	this.onInteractionUpdate = function (dnd){
 		//console.log('update');
-		this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, dnd.yFinal - dnd.yInit, dnd.xFinal - dnd.xInit, this.currLineWidth, this.currColour);
+		if (this.currEditingMode == editingMode.rect) {
+			this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, dnd.yFinal - dnd.yInit, dnd.xFinal - dnd.xInit, this.currLineWidth, this.currColour);
+					}
+		else if (this.currEditingMode == editingMode.line) {
+			this.currentShape = new Line(dnd.xInit, dnd.yInit, dnd.xFinal, dnd.yFinal, this.currLineWidth, this.currColour);
+		}
+		
 		drawing.paint(ctx, canvas);
-		this.currentShape.paint(ctx);
+			this.currentShape.paint(ctx);
 	  }.bind(this);
 	
 	this.onInteractionEnd = function (dnd) {

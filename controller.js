@@ -20,12 +20,14 @@ function Pencil(ctx, drawing, canvas) {
 	  
 	this.onInteractionUpdate = function (dnd){
 		//console.log('update');
-		this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, this.currLineWidth, dnd.xFinal, dnd.yFinal, this.currColour);
+		this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, dnd.yFinal - dnd.yInit, dnd.xFinal - dnd.xInit, this.currLineWidth, this.currColour);
+		drawing.paint(ctx, canvas);
 		this.currentShape.paint(ctx);
 	  }.bind(this);
 	
 	this.onInteractionEnd = function (dnd) {
-		this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, this.currLineWidth, dnd.xFinal, dnd.yFinal, this.currColour);
+		drawing.shapeArray.set(this.currentShape, this.currentShape);
+		drawing.paint(ctx, canvas);
 		this.currentShape.paint(ctx);
 	  }.bind(this)
 };

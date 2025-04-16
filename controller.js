@@ -13,17 +13,21 @@ function Pencil(ctx, drawing, canvas) {
 
 	// Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
 
-		// Developper les 3 fonctions gérant les événements
-		this.onInteractionStart = function (dnd) {
-			
-		  }.bind(this);
-		  
-		  this.onInteractionUpdate = function (dnd){
-			
-		  }.bind(this);
-		
-		  this.onInteractionEnd = function (dnd) {
-		  }.bind(this)
+	// Developper les 3 fonctions gérant les événements
+	this.onInteractionStart = function (dnd) {
+		this.currentShape = new Rectangle();
+	  }.bind(this);
+	  
+	this.onInteractionUpdate = function (dnd){
+		//console.log('update');
+		this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, this.currLineWidth, dnd.xFinal, dnd.yFinal, this.currColour);
+		this.currentShape.paint(ctx);
+	  }.bind(this);
+	
+	this.onInteractionEnd = function (dnd) {
+		this.currentShape = new Rectangle(dnd.xInit, dnd.yInit, this.currLineWidth, dnd.xFinal, dnd.yFinal, this.currColour);
+		this.currentShape.paint(ctx);
+	  }.bind(this)
 };
 
 

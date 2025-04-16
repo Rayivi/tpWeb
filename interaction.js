@@ -30,7 +30,7 @@ function DnD(canvas, interactor) {
     this.yInit = pos.y;
     this.isCliked = true;
    // console.log("Bouger "+pos);
-   this.interactor.onInteractionUpdate(this);
+    this.interactor.onInteractionUpdate(this);
     }
   }.bind(this);
 
@@ -41,7 +41,7 @@ function DnD(canvas, interactor) {
     this.yFinal = pos.y;
     this.isCliked = false;
    // console.log("Bouger "+pos);
-   this.interactor.onInteractionEnd(this);
+    this.interactor.onInteractionEnd(this);
   }.bind(this)
 
 	// Associer les fonctions précédentes aux évènements du canvas.

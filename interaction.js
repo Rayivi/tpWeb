@@ -8,26 +8,40 @@ function DnD(canvas, interactor) {
     this.yInit = 0;
     this.xFinal = 0;
     this.yFinal = 0;
+    this.isCliked = false;
+    this.interactor = interactor;
 
 
 	// Developper les 3 fonctions gérant les événements
-  this.mouseclick = function maFctGerantLaPression (event) {
+  this.mouseclick = function (event) {
     let pos = getMousePosition(canvas,event);
     this.xInit = pos.x;
     this.yInit = pos.y;
+    this.isCliked = true;
     //console.log("Click"+pos);
+    this.interactor.onInteractionStart(this);
   }.bind(this);
   
-  this.mousemove = function maFctGerantLeDeplacement (event){
+  this.mousemove = function (event) {
     //console.log(event);
+    if(this.isCliked){
     let pos = getMousePosition(canvas,event);
     this.xInit = pos.x;
     this.yInit = pos.y;
+    this.isCliked = true;
    // console.log("Bouger "+pos);
+   this.interactor.onInteractionUpdate(this);
+    }
   }.bind(this);
 
-  this.mouseup = function maFctGerantLeRelachement (event) {
+  this.mouseup = function (event) {
   //console.log(event);
+  let pos = getMousePosition(canvas,event);
+    this.xFinal = pos.x;
+    this.yFinal = pos.y;
+    this.isCliked = false;
+   // console.log("Bouger "+pos);
+   this.interactor.onInteractionEnd(this);
   }.bind(this)
 
 	// Associer les fonctions précédentes aux évènements du canvas.

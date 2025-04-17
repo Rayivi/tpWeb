@@ -23,3 +23,23 @@ Line.prototype.paint = function(ctx) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     this.shapeArray.forEach(element => element.paint(ctx));
   };
+
+function updateShapeList(index, shape) {
+    let list = document.getElementById('shapeList');
+    list.insertAdjacentHTML('beforeend',toDom(shape, index));
+}
+
+function toDom(shape, index) {
+    if(shape && typeof shape === 'object') {
+        let li = `<li id="liRemove${index}">`;
+        if(shape.constructor === Rectangle)
+          li += '<span style="color:' + shape.color + '">Rect </span>Rectangle';
+        else if(shape.constructor === Line)
+          li += '<span style="color:' + shape.color + '">/</span> Line';
+        li += `<button type="button" class="btn btn-default remove" id="remove${index}">
+        <span class="glyphicon glyphicon-remove-sign"></span>
+        </button>`;
+        li += `</li>`;
+        return li;
+    }
+}

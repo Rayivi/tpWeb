@@ -36,12 +36,24 @@ function Pencil(ctx, drawing, canvas) {
 	  }.bind(this);
 	
 	this.onInteractionEnd = function (dnd) {
-		drawing.shapeArray.set(this.currentShape, this.currentShape);
+		let uuid = generateUUID();
+		//console.log(uuid);
+		drawing.shapeArray.set(uuid, this.currentShape);
 		drawing.paint(ctx, canvas);
+		updateShapeList(uuid, this.currentShape);
+		document.getElementById('liRemove' + uuid).onclick = function() {
+			remove(drawing, uuid, ctx, canvas);
+		};
 		this.currentShape.paint(ctx);
 	  }.bind(this)
 };
 
+function remove(drawing, index, ctx, canvas) {
+	//console.log(index);
+	drawing.shapeArray.delete(index);
+	drawing.paint(ctx, canvas);
+	document.getElementById('liRemove' +index).remove();
+}
 // Fonction pour générer un UUID unique @see https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
 function generateUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
